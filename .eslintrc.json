@@ -1,0 +1,9 @@
+{
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:vue/vue3-recommended",
+      "prettier"
+    ],
+    "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+}
