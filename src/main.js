@@ -12,10 +12,20 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons'
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret, faCircleCheck, faSquareCheck, faBars, faTrashCan)
+library.add(
+    faUserSecret,
+    faCircleCheck,
+    faSquareCheck,
+    faBars,
+    faTrashCan,
+    faPlus,
+    faCircleXmark
+)
 
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

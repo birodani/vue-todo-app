@@ -1,10 +1,11 @@
 <script setup>
 import { format } from 'date-fns'
 const toDay = new Date()
+const emits = defineEmits(['onAddNewItem'])
 </script>
 <template>
     <header
-        class="font-poppins bg-emerald-500 text-white rounded-b-lg shadow-xl px-4 py-6 mb-4 md:w-3/4 flex flex-row"
+        class="font-poppins bg-emerald-500 text-white rounded-b-lg shadow-xl px-4 py-6 mb-4 md:w-3/4 flex flex-row justify-between"
     >
         <font-awesome-icon
             icon="fa-solid fa-bars"
@@ -14,5 +15,11 @@ const toDay = new Date()
             <h1>Dailly tasks</h1>
             <p class="text-xs">{{ format(toDay, 'eeee, yyyy. MMM. dd') }}</p>
         </div>
+        <button @click="emits('onAddNewItem')">
+            <font-awesome-icon
+                icon="fa-solid fa-plus"
+                class="text-white pl-4 h-10 text-2xl"
+            />
+        </button>
     </header>
 </template>
