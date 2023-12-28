@@ -1,14 +1,27 @@
 <script setup>
 import { reactive } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, maxLength } from '@vuelidate/validators'
 
 const emits = defineEmits(['onSubmitForm'])
 
+const form = reactive({ priority: undefined, description: undefined })
+const rules = {
+    priority: { required, $autoDirty: true },
+    description: { required, maxLength: maxLength(3), $autoDirty: true },
+}
+
+const v$ = useVuelidate(rules, form)
+
 const onSubmit = () => {
+    v$.value.$validate()
+    console.log(v$)
+    if (v$.value.$invalid) return
     const { priority, description } = form
     emits('onSubmitForm', { priority, description })
 }
-const form = reactive({ priority: undefined, description: undefined })
 </script>
+
 <template>
     <form class="max-w-sm mx-auto" @submit.prevent="onSubmit">
         <div class="mb-5">
@@ -22,6 +35,9 @@ const form = reactive({ priority: undefined, description: undefined })
                 <option value="MEDIUM">Medium</option>
                 <option value="LOW">Low</option>
             </select>
+            <div v-for="error of v$.priority.$errors" :key="error.$uid">
+                <div class="text-xs text-red-600">{{ error.$message }}</div>
+            </div>
         </div>
         <div class="mb-5">
             <label for="description">Description</label>
@@ -31,6 +47,9 @@ const form = reactive({ priority: undefined, description: undefined })
                 type="text"
                 class="border rounded-lg w-full p-1 text-sm"
             />
+            <div v-for="error of v$.description.$errors" :key="error.$uid">
+                <div class="text-xs text-red-600">{{ error.$message }}</div>
+            </div>
         </div>
         <div class="text-right">
             <button
