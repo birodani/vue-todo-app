@@ -1,33 +1,47 @@
 <script setup>
 import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, maxLength } from '@vuelidate/validators'
+import { required, maxLength, helpers } from '@vuelidate/validators'
+import { startOfToday } from 'date-fns'
+import { minDateValidator } from '../util/min-date-validator'
 
-const emits = defineEmits(['onSubmitForm'])
+const emit = defineEmits(['onSubmitForm'])
 
-const form = reactive({ priority: undefined, description: undefined })
+const form = reactive({
+    priority: undefined,
+    description: undefined,
+    dueDate: undefined,
+})
+
 const rules = {
     priority: { required, $autoDirty: true },
-    description: { required, maxLength: maxLength(3), $autoDirty: true },
+    description: { required, maxLength: maxLength(10), $autoDirty: true },
+    dueDate: {
+        required,
+        minValue: helpers.withMessage(
+            'Past days not available',
+            minDateValidator(startOfToday())
+        ),
+        $autoDirty: true,
+    },
 }
 
 const v$ = useVuelidate(rules, form)
 
 const onSubmit = () => {
     v$.value.$validate()
-    console.log(v$)
     if (v$.value.$invalid) return
     const { priority, description } = form
-    emits('onSubmitForm', { priority, description })
+    emit('onSubmitForm', { priority, description })
 }
 </script>
 
 <template>
     <form class="max-w-sm mx-auto" @submit.prevent="onSubmit">
         <div class="mb-5">
-            <label for="priotity" class="block">Priotity</label>
+            <label for="priority" class="block">Priority</label>
             <select
-                id="priotity"
+                id="priority"
                 v-model="form.priority"
                 class="appearance-none border rounded-lg w-full p-1 text-sm"
             >
@@ -40,7 +54,7 @@ const onSubmit = () => {
             </div>
         </div>
         <div class="mb-5">
-            <label for="description">Description</label>
+            <label for="descritpion">Description</label>
             <input
                 id="descritpion"
                 v-model="form.description"
@@ -48,6 +62,18 @@ const onSubmit = () => {
                 class="border rounded-lg w-full p-1 text-sm"
             />
             <div v-for="error of v$.description.$errors" :key="error.$uid">
+                <div class="text-xs text-red-600">{{ error.$message }}</div>
+            </div>
+        </div>
+        <div class="mb-5">
+            <label for="due-date">Due date</label>
+            <input
+                id="due-date"
+                v-model="form.dueDate"
+                type="date"
+                class="border rounded-lg w-full p-1 text-sm"
+            />
+            <div v-for="error of v$.dueDate.$errors" :key="error.$uid">
                 <div class="text-xs text-red-600">{{ error.$message }}</div>
             </div>
         </div>
