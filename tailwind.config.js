@@ -10,6 +10,15 @@ export default {
                 noto: ['"Noto Sans"', ...defaultTheme.fontFamily.sans],
                 poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                modalAppear: {
+                    from: { top: '-300px', opacity: 0 },
+                    to: { top: 0, opacity: 1 },
+                },
+            },
+            animation: {
+                modal: 'modalAppear 2s',
+            },
         },
     },
     plugins: [],
