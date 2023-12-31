@@ -31,8 +31,8 @@ const v$ = useVuelidate(rules, form)
 const onSubmit = () => {
     v$.value.$validate()
     if (v$.value.$invalid) return
-    const { priority, description } = form
-    emit('onSubmitForm', { priority, description })
+    const { priority, description, dueDate } = form
+    emit('onSubmitForm', { priority, description, dueDate })
 }
 </script>
 

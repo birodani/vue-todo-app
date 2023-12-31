@@ -38,10 +38,10 @@ function onDeleteItemClick(event) {
 }
 
 function onSubmitForm(event) {
-    const { priority, description } = event
+    const { priority, description, dueDate } = event
     const maxId = findMaxId(state.todos) ?? 0
     let id = maxId + 1
-    state.todos.push({ id, priority, description, status: 'ACTIVE' })
+    state.todos.push({ id, priority, description, status: 'ACTIVE', dueDate })
     onCloseModal()
 }
 </script>
