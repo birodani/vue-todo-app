@@ -13,6 +13,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
@@ -25,7 +26,8 @@ library.add(
     faBars,
     faTrashCan,
     faPlus,
-    faCircleXmark
+    faCircleXmark,
+    faX
 )
 
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

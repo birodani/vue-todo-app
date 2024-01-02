@@ -18,6 +18,7 @@ export default {
             },
             animation: {
                 modal: 'modalAppear 2s',
+                dropdownMenu: 'modalAppear 1s',
             },
         },
     },

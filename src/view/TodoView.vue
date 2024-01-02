@@ -61,7 +61,7 @@ function onSubmitForm(event) {
     </AppModalComponent>
     <div class="container flex flex-col align-middle items-center">
         <AppHeader @on-add-new-item="onAddNewItemClick()" />
-        <main class="flex flex-col md:w-3/4">
+        <main class="flex flex-col w-5/6 xl:w-3/4">
             <TodoEmptyState v-if="state.todos.length === 0" />
             <TodoList
                 v-else-if="state.todos.length !== 0"
