@@ -7,6 +7,7 @@ import TodoList from '../components/TodoList.vue'
 import TodoForm from '../components/TodoForm.vue'
 import AppModalComponent from '../components/AppModal.vue'
 import { testTodos } from '../test-data/test-todo'
+import { saveAs } from 'file-saver'
 
 let state = reactive({
     todos: testTodos,
@@ -44,6 +45,21 @@ function onSubmitForm(event) {
     state.todos.push({ id, priority, description, status: 'ACTIVE', dueDate })
     onCloseModal()
 }
+
+function onDownloadButtonClick() {
+    setTimeout(() =>
+        window.open('http://www.borsodcomplex.hu/termekkatalogus/2092.pdf')
+    )
+}
+
+function onShowButtonClick() {
+    setTimeout(() =>
+        saveAs(
+            'http://www.borsodcomplex.hu/termekkatalogus/2092.pdf',
+            'teszt.pdf'
+        )
+    )
+}
 </script>
 <template>
     <AppModalComponent
@@ -70,6 +86,8 @@ function onSubmitForm(event) {
                 @on-delete-item-click="onDeleteItemClick"
             />
         </main>
+        <button @click="onDownloadButtonClick()">Download</button>
+        <button @click="onShowButtonClick()">Show</button>
         <footer></footer>
     </div>
 </template>
